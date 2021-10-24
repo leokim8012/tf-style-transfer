@@ -34,7 +34,6 @@ def save_img(image, title='test', path=os.getcwd() + '/outputs/'):
   plt.clf()
   if len(image.shape) > 3:
     image = tf.squeeze(image, axis=0)
-
   plt.imshow(image)
   plt.title(title)
   # plt.suptitle(title, y=0.95 , size=10, weight=3)
@@ -45,3 +44,8 @@ def save_img(image, title='test', path=os.getcwd() + '/outputs/'):
 
 def clip(image):
   return tf.clip_by_value(image, clip_value_min=0.0, clip_value_max=1.0)
+def high_pass_x_y(image):
+  x_var = image[:,:,1:,:] - image[:,:,:-1,:]
+  y_var = image[:,1:,:,:] - image[:,:-1,:,:]
+
+  return x_var, y_var
